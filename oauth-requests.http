@@ -4,6 +4,7 @@
 @apiClientSecret = <your client secret here>
 
 ### Get the apiClient token using the v2 endpoint. It requires to Set the Application Id URI
+# @name auth
 POST https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/oauth2/v2.0/token
 Content-Type: application/x-www-form-urlencoded
 
@@ -12,10 +13,11 @@ client_id={{apiClientClientId}}
 &scope=api://{{apiAppRegClientId}}/.default
 &grant_type=client_credentials
 
+
 ### copy the access token from the response and paste it after 'Bearer ' in the Authorization: header below
 ###
 GET https://apim-ais-demo-dev.azure-api.net/products/GetProduct?productid=75542e38-563f-436f-adeb-f426f1dabb5c HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
-Ocp-Apim-Subscription-Key: <Your api subscription key>
+Ocp-Apim-Subscription-Key: <>
 Ocp-Apim-Trace: true
-Authorization: Bearer 
+Authorization: Bearer {{auth.response.body.$.access_token}}

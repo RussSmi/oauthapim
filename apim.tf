@@ -1,9 +1,10 @@
 locals {
   apim_policy_path = format("%s%s", var.apim_policies_path, "apim_policy.xml")
+  apim_rg_name     = "${var.resource_group_name}-apim-${lower(var.environment)}"
 }
 
 resource "azurerm_resource_group" "apim" {
-  name     = "${var.resource_group_name}-apim-${lower(var.environment)}"
+  name     = local.apim_rg_name
   location = var.location
   tags     = var.tags
 
