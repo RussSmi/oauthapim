@@ -31,19 +31,19 @@ resource "azuread_application" "oauthapim" {
   ]
 
   app_role {
-        allowed_member_types = [
-            "Application",
-        ]
-        description          = "Readers can read product data"
-        display_name         = "Product.Read"
-        enabled              = true
-       id                   = "a87c9e59-4090-4705-be08-0e0e246f5dfb"  #todo change this to random_uuid call 
-        value                = "Product.Read"
-    }
+    allowed_member_types = [
+      "Application",
+    ]
+    description  = "Readers can read product data"
+    display_name = "Product.Read"
+    enabled      = true
+    id           = "a87c9e59-4090-4705-be08-0e0e246f5dfb" #todo change this to random_uuid call 
+    value        = "Product.Read"
+  }
 }
 
 resource "azuread_application" "oauthapimclient" {
-  display_name                   = "oauthapim-demo-client"
+  display_name = "oauthapim-demo-client"
   owners       = [data.azuread_client_config.current.object_id]
 
   api {
@@ -59,11 +59,48 @@ resource "azuread_application" "oauthapimclient" {
     }
   }
   required_resource_access {
-        resource_app_id = azuread_application.oauthapim.application_id
+    resource_app_id = azuread_application.oauthapim.application_id
 
-        resource_access {
-            id   = "29733d9e-a10e-491d-9f33-1d57873e09ac"
-            type = "Scope"
-        }
+    resource_access {
+      id   = "29733d9e-a10e-491d-9f33-1d57873e09ac"
+      type = "Scope"
     }
+  }
+}
+
+resource "azuread_application_password" "clientsecret" {
+  application_object_id = azuread_application.oauthapimclient.object_id
+}
+
+data "azurerm_key_vault" "kv" {
+  name                = local.key_vault_name
+  resource_group_name = local.apim_rg_name
+
+  depends_on = [
+    azurerm_key_vault.keyvault
+  ]
+}
+
+resource "azurerm_key_vault_access_policy" "kv" {
+  key_vault_id = data.azurerm_key_vault.kv.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = data.azurerm_client_config.current.object_id
+
+  secret_permissions = [
+    "Get", "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set",
+  ]
+
+  depends_on = [
+    data.azurerm_key_vault.kv
+  ]
+}
+
+resource "azurerm_key_vault_secret" "clientsecret" {
+  name         = "oauth-client-app-secret"
+  value        = azuread_application_password.clientsecret.value
+  key_vault_id = data.azurerm_key_vault.kv.id
+
+  depends_on = [
+    azurerm_key_vault_access_policy.kv
+  ]
 }
