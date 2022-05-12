@@ -42,7 +42,7 @@ resource "azurerm_api_management" "apim" {
     xml_content = file(local.apim_policy_path)
   }
 
-  publisher_email      = "russell.smith@microsoft.com"
+  publisher_email      = "apim_admin@azure-api.net"
   publisher_name       = "Demo"
   sku_name             = "Developer_1"
   tags                 = var.tags

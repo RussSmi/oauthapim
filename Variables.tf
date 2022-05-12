@@ -15,15 +15,6 @@ variable "tags" {
   }
 }
 
-variable "object-ids" {
-  type    = list(any)
-  default = ["96b43a71-7601-4719-9235-eff0b530b157", "2933b5e7-efa0-49d3-9963-0a8a33ec2da2"] #Put any object ids that need key vault access here
-}
-
-# The following variables must  be set each time
-variable "environment" {
-}
-
 variable "apim_policies_path" {
   type    = string
   default = "./apim_policies/"
@@ -33,6 +24,23 @@ variable "api-url" {
   type    = string
   default = "https://serverlessohapi.azurewebsites.net/api/"
 }
+
+# do not include the 'api:' part
+variable "app_reg_app_id_uri" {
+  type = string
+  default = "2df27e5a-89fa-4ff2-9606-8a13d080b112"
+}
+
+## Microsoft Graph, from az ad sp list --display-name "Microsoft Graph" --query '[].{appDisplayName:appDisplayName, appId:appId}'
+variable "msgraphid" {
+  type = string
+  default = "00000003-0000-0000-c000-000000000000"
+}
+
+# The following variables must  be set each time
+variable "environment" {
+}
+
 
 
 

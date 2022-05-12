@@ -52,7 +52,5 @@ resource "azurerm_api_management_api_operation_policy" "apim-post" {
   resource_group_name = azurerm_api_management_api_operation.apim-post.resource_group_name
   operation_id        = azurerm_api_management_api_operation.apim-post.operation_id
 
-
   xml_content = replace(file(local.apim_product_op_policy_path), "{backend-app-client-id}", "${azuread_application.oauthapim.application_id}")
-
 }
