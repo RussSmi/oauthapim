@@ -1,0 +1,17 @@
+{
+    "aud": "api://2df27e5a-89fa-4ff2-9606-8a13d080b112",
+    "iss": "https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/",
+    "iat": "[Local:GMT+1]: 11 May 2022, 18:19:12 // [UTC]: 11 May 2022, 17:19:12",
+    "nbf": "[Local:GMT+1]: 11 May 2022, 18:19:12 // [UTC]: 11 May 2022, 17:19:12",
+    "exp": "[Local:GMT+1]: 12 May 2022, 18:24:12 // [UTC]: 12 May 2022, 17:24:12",
+    "aio": "E2ZgYJgVfbD//9nE1YpTT5tdmvVrPgA=",
+    "appid": "ee07f5e2-b300-4c84-b74c-15ccf9ad9ada",
+    "appidacr": "1",
+    "idp": "https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/",
+    "oid": "5edd2002-7eb7-4117-bc13-39412febcf92",
+    "rh": "0.ARoAv4j5cvGGr0GRqy180BHbR1p-8i36ifJPlgaKE9CAsRIaAAA.",
+    "sub": "5edd2002-7eb7-4117-bc13-39412febcf92",
+    "tid": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+    "uti": "7NZt3Gu70UWe7bNDhFMvAA",
+    "ver": "1.0"
+}
